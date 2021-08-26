@@ -5,14 +5,20 @@
 static int count_of_prime_check = 0;
 //return 1 if x is a prime number
 int checkPrime(int x){
+	int retval = 1;
 	count_of_prime_check++;
+	if ( x <= 1){
+		printf("%d is not prime\n", x);
+		retval = -1;
+	}
 	for ( int i = 2; i < x;i++){
 		if ( x%i == 0){
 			printf(" %d is divisible by %d\n",x,i);
-			return -1;
+			retval = -1;
+			break;
 		}
 	}
-	return 1;
+	return retval;
 }
 
 void printKnownPrimes(int len, int* p_arr){
