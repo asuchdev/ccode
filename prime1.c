@@ -7,17 +7,19 @@ static int count_of_prime_check = 0;
 int checkPrime(int x){
 	int retval = 1;
 	count_of_prime_check++;
-	if ( x <= 1){
+	printf("checkPrime: %d\n",x);
+	if ( x <= 1 || 0 == x%2){
 		printf("%d is not prime\n", x);
 		retval = -1;
 	}
-	for ( int i = 2; i < x;i++){
-		if ( x%i == 0){
-			printf(" %d is divisible by %d\n",x,i);
-			retval = -1;
-			break;
+	else
+		for ( int i = 2; i < x;i++){
+			if ( x%i == 0){
+				printf(" %d is divisible by %d\n",x,i);
+				retval = -1;
+				break;
+			}
 		}
-	}
 	return retval;
 }
 
@@ -52,21 +54,21 @@ int findPrimeComponents(int x){
 	//first allocate an array of integers
 	int *p_arr = (int*)malloc(x*sizeof(int));
 	int i = 2, retval = 0, count = 0;
-	for (; i<x; i++){
+	for (; i<=x/2; i++){
 		count++;
 		printf(" will check for %d %d\n", i, x-i);
-		printKnownPrimes(x,p_arr);
+		/*printKnownPrimes(x,p_arr);
 		if( 1 == checkAndMarkPrime(i, p_arr) && 
 				1 == checkAndMarkPrime(x-i, p_arr)){
 			printf("found prime components: %d %d\n",i, x-i);
 			retval = 1;
 			break;
-		}
-		/*if( 1 == checkPrime(i) && 
+		}*/
+		if( 1 == checkPrime(i) && 
 				1 == checkPrime(x-i)){
 			printf("found prime components: %d %d\n",i, x-i);
 			return 1;
-		}*/
+		}
 
 	}
 	printf("\nTotal possible prime check if memoization not done %d\n",count*2);
